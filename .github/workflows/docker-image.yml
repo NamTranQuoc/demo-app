@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASS }}  # Docker Hub password stored as GitHub secret
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag namtranquoc/test-deployment:${{ github.sha }}
+      run: docker build . --file Dockerfile --tag namtranquoc/test-deployment:1.0.0
 
     - name: Push the Docker image
-      run: docker push namtranquoc/test-deployment:${{ github.sha }}
+      run: docker push namtranquoc/test-deployment:1.0.0
