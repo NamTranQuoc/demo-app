@@ -23,7 +23,25 @@ jobs:
         password: ${{ secrets.DOCKER_PASS }}  # Docker Hub password stored as GitHub secret
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag namtranquoc/test-deployment:1.0.0
+      run: docker build . --file Dockerfile --tag namtranquoc/test-deployment:${{ github.sha }}
 
     - name: Push the Docker image
       run: docker push namtranquoc/test-deployment:1.0.0
+
+    - name: Clone the GitLab repository
+      run: |
+        git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/wolfnam16/deployment.git
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+
+    - name: Update `newTag` in `kustomization.yaml`
+      run: |
+        cd deployment/projects/dev/koffi/test
+        sed -i "s/newTag: .*/newTag: ${{ github.sha }}/" kustomization.yaml
+        cd ../..
+        git add projects/dev/koffi/test/kustomization.yaml
+        git commit -m "Update newTag to ${{ github.sha }}"
+        git push
+
+    - name: Clean up
+      run: rm -rf deployment
