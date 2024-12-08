@@ -32,6 +32,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout the code
+      uses: actions/checkout@v4
+
     - name: Clone the GitLab repository
       run: |
         git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/wolfnam16/deployment.git
