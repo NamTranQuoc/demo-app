@@ -29,6 +29,7 @@ jobs:
       run: docker push namtranquoc/test-deployment:${{ github.sha }}
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Clone the GitLab repository
