@@ -34,12 +34,13 @@ jobs:
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         cd deployment
+        ls -l
 
     - name: Update `newTag` in `kustomization.yaml`
       run: |
-        cd deployment/projects/dev/koffi/test
+        cd projects/dev/koffi/test
         sed -i "s/newTag: .*/newTag: ${{ github.sha }}/" kustomization.yaml
-        cd ../..
+        cd ../../../
         git add projects/dev/koffi/test/kustomization.yaml
         git commit -m "Update newTag to ${{ github.sha }}"
         git push
