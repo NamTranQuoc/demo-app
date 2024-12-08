@@ -31,9 +31,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v4
+    - name: Install git
+      run: brew install git
 
     - name: Clone the GitLab repository
       run: |
