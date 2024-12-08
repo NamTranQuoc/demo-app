@@ -34,7 +34,7 @@ jobs:
 
     steps:
     - name: Install git
-      run: brew install git
+      run: sudo apt install git
 
     - name: Clone the GitLab repository
       run: |
