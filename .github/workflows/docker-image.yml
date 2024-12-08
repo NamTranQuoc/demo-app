@@ -38,7 +38,8 @@ jobs:
 
     - name: Update `newTag` in `kustomization.yaml`
       run: |
-        cd projects/dev/koffi/test
+        ls -l
+        cd deployment/projects/dev/koffi/test
         sed -i "s/newTag: .*/newTag: ${{ github.sha }}/" kustomization.yaml
         cd ../../../
         git add projects/dev/koffi/test/kustomization.yaml
