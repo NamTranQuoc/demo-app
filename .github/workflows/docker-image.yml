@@ -34,7 +34,10 @@ jobs:
 
     steps:
     - name: Install git
-      run: sudo apt install git
+      run: |
+        sudo apt update
+        sudo apt install git
+        git --version
 
     - name: Clone the GitLab repository
       run: |
