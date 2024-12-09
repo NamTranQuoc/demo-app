@@ -36,8 +36,7 @@ jobs:
           git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/wolfnam16/deployment.git gitlab-repo
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-        env:
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          ls -l
 
       - name: Update `newTag` in `kustomization.yaml`
         run: |
