@@ -33,7 +33,8 @@ jobs:
 
       - name: Clone the GitLab repository
         run: |
-          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/wolfnam16/deployment.git gitlab-repo
+          git clone https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/wolfnam16/deployment.git gitlab-repo || exit 1
+          cd gitlab-repo
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           ls -l
