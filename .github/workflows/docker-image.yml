@@ -26,10 +26,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Build the Docker image
-        run: docker build ./github-repo --file github-repo/Dockerfile --tag namtranquoc/test-deployment:${{ github.sha }}
+        run: docker build ./github-repo --file github-repo/Dockerfile --tag namtranquoc/test-deployment:1.0.1
 
       - name: Push the Docker image
-        run: docker push namtranquoc/test-deployment:${{ github.sha }}
+        run: docker push namtranquoc/test-deployment:1.0.1
 
       - name: Clone the GitLab repository
         run: |
@@ -42,7 +42,7 @@ jobs:
       - name: Update `newTag` in `kustomization.yaml`
         run: |
           cd gitlab-repo/projects/dev/koffi/test
-          sed -i "s/newTag: .*/newTag: ${{ github.sha }}/" kustomization.yaml
+          sed -i "s/newTag: .*/newTag: 1.0.1 # ${{ github.sha }}/" kustomization.yaml
           git add kustomization.yaml
           git commit -m "Update newTag to ${{ github.sha }}"
           git push
