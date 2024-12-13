@@ -35,7 +35,8 @@ jobs:
 
       - name: Get image digest
         run: |
-          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' namtranquoc/test-deployment:$VERSION)
+          FULL_DIGEST=$(docker manifest inspect namtranquoc/test-deployment:$VERSION | jq -r '.digest')
+          DIGEST=$(echo $FULL_DIGEST | sed 's|.*/||')  # "sha256:..."
           echo "DIGEST=${DIGEST}" >> $GITHUB_ENV
 
       - name: Clone the GitLab repository
@@ -49,7 +50,7 @@ jobs:
       - name: Update `kustomization.yaml` with image digest
         run: |
           cd gitlab-repo/projects/dev/koffi/test
-          sed -i "s/digest: .*/digest: $DIGEST/" kustomization.yaml
+          sed -i "s|digest: .*|digest: ${DIGEST}|" kustomization.yaml
           git add kustomization.yaml
           git commit -m "Update image digest to ${github.sha}"
           git push
