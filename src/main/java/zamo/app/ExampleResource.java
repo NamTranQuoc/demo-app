@@ -14,6 +14,6 @@ public class ExampleResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello " + name + " from Quarkus REST";
+        return "Hello1 " + name + " from Quarkus REST";
     }
 }
